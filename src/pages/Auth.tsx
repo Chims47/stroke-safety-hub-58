@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { Logo } from "@/components/Logo";
 import { toast } from "@/hooks/use-toast";
+import { supabase } from "@/lib/supabase";
 
 const Auth = () => {
   const [searchParams] = useSearchParams();
@@ -20,27 +21,41 @@ const Auth = () => {
 
     try {
       if (mode === "login") {
-        // Mock successful login for now
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+
+        if (error) throw error;
+
         toast({
           title: "Success",
           description: "Logged in successfully!",
         });
         navigate("/dashboard");
       } else {
-        // Mock successful signup for now
+        const { data, error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            emailRedirectTo: `${window.location.origin}/auth?mode=login`,
+          },
+        });
+
+        if (error) throw error;
+
         toast({
           title: "Account created",
-          description: "Your account has been created successfully!",
+          description: "Please check your email to verify your account!",
         });
-        navigate("/dashboard");
       }
-    } catch (error) {
+    } catch (error: any) {
       toast({
         variant: "destructive",
         title: "Error",
-        description: mode === "login" 
+        description: error?.message || (mode === "login" 
           ? "Invalid email or password" 
-          : "Failed to create account. Please try again.",
+          : "Failed to create account. Please try again."),
       });
     } finally {
       setIsLoading(false);
