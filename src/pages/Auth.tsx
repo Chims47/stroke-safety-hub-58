@@ -26,7 +26,22 @@ const Auth = () => {
           password,
         });
 
-        if (error) throw error;
+        if (error) {
+          if (error.message.includes("Invalid login credentials")) {
+            toast({
+              variant: "destructive",
+              title: "Login failed",
+              description: "Please check your email and password. If you haven't verified your email, please check your inbox.",
+            });
+          } else {
+            toast({
+              variant: "destructive",
+              title: "Error",
+              description: error.message,
+            });
+          }
+          return;
+        }
 
         toast({
           title: "Success",
@@ -42,12 +57,22 @@ const Auth = () => {
           },
         });
 
-        if (error) throw error;
+        if (error) {
+          toast({
+            variant: "destructive",
+            title: "Error",
+            description: error.message,
+          });
+          return;
+        }
 
         toast({
           title: "Account created",
-          description: "Please check your email to verify your account!",
+          description: "Please check your email to verify your account before logging in!",
         });
+        
+        // Switch to login mode after successful signup
+        setMode("login");
       }
     } catch (error: any) {
       toast({
@@ -92,6 +117,7 @@ const Auth = () => {
               required
               disabled={isLoading}
               className="w-full"
+              minLength={6}
             />
           </div>
           <Button 
