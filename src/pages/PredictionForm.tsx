@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Navbar } from "@/components/Navbar";
 import { Card } from "@/components/ui/card";
-import { HelpCircle } from "lucide-react";
+import { HelpCircle, ArrowLeft } from "lucide-react";
 
 const PredictionForm = () => {
   const navigate = useNavigate();
@@ -39,11 +39,19 @@ const PredictionForm = () => {
       <Navbar />
       <div className="container mx-auto px-4 py-8">
         <Card className="max-w-2xl mx-auto p-8">
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex items-center gap-4 mb-6">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => navigate('/information')}
+              className="h-8 w-8"
+            >
+              <ArrowLeft className="h-4 w-4" />
+            </Button>
             <h1 className="text-2xl font-bold">Health Assessment Form</h1>
             <Link 
               to="/information" 
-              className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
+              className="ml-auto flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
             >
               <HelpCircle className="h-5 w-5" />
               <span>Confused? Click here for help</span>

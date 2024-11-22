@@ -1,11 +1,12 @@
-import { useState } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useSearchParams, useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { Logo } from "@/components/Logo";
 import { toast } from "@/hooks/use-toast";
 import { supabase } from "@/lib/supabase";
+import { ArrowLeft } from "lucide-react";
 
 const Auth = () => {
   const [searchParams] = useSearchParams();
@@ -89,6 +90,16 @@ const Auth = () => {
 
   return (
     <div className="min-h-screen bg-secondary flex flex-col items-center justify-center p-4">
+      <div className="w-full max-w-md">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => navigate('/')}
+          className="mb-4"
+        >
+          <ArrowLeft className="h-4 w-4" />
+        </Button>
+      </div>
       <div className="mb-8">
         <Logo />
       </div>
