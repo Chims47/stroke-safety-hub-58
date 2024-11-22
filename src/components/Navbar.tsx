@@ -44,7 +44,11 @@ export const Navbar = () => {
           </Link>
           {user ? (
             <>
-              <span className="text-sm font-medium">{user.email}</span>
+              <Link to="/account">
+                <Button variant="ghost" className="text-sm font-medium">
+                  {user.email}
+                </Button>
+              </Link>
               <Button variant="ghost" size="icon" onClick={handleLogout}>
                 <LogOut className="h-4 w-4" />
               </Button>
