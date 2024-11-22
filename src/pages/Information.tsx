@@ -1,13 +1,27 @@
 import { Navbar } from "@/components/Navbar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Heart, Activity, Scale, Home, Cigarette, Briefcase } from "lucide-react";
+import { Heart, Activity, Scale, Home, Cigarette, Briefcase, ArrowLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 const Information = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen bg-secondary">
       <Navbar />
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-8 text-center">Understanding Health Indicators</h1>
+        <div className="flex items-center gap-4 mb-8">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => navigate(-1)}
+            className="h-8 w-8"
+          >
+            <ArrowLeft className="h-4 w-4" />
+          </Button>
+          <h1 className="text-3xl font-bold">Understanding Health Indicators</h1>
+        </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Card>
